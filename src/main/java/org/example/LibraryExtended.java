@@ -8,9 +8,9 @@ public interface LibraryExtended {
     String addBook(String title, String[] authors);
     void removeBook(String bookId);
     void rentBookToClient(String clientId, String bookId);
-    List<Book> findBooksByAuthor(String author);
-    List<Client> findClientsByLastName(String lastName);
-    List<Book> findBooksByTitle(String title);
-    List<Book> getRentedBooksOfClient(String clientId);
+    ArrayList<Book> findBooksByAuthor(String author);
+    ArrayList<Client> findClientsByLastName(String lastName);
+    ArrayList<Book> findBooksByTitle(String title);
+    ArrayList<Book> getRentedBooksOfClient(String clientId);
     List<Book> getAvailableBooks();
 }
