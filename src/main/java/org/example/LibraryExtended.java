@@ -14,5 +14,5 @@ public interface LibraryExtended {
     ArrayList<Client> findClientsByLastName(String lastName);
     ArrayList<Book> findBooksByTitle(String title);
     ArrayList<Book> getRentedBooksOfClient(String clientId);
-    List<Book> getAvailableBooks();
+    ArrayList<Book> getAvailableBooks();
 }

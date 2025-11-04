@@ -81,11 +81,27 @@ public class LibraryExtendedImpl implements LibraryExtended {
 
     @Override
     public ArrayList<Book> getRentedBooksOfClient(String clientId) {
-        rentedBooks
+        ArrayList<Book> foundBooks = new ArrayList<>();
+        for (Map.Entry<String, String> entry : rentedBooks.entrySet()){
+            if (entry.getValue().equals(clientId)){
+                String foundBookId = entry.getKey();
+                Book foundBook = books.get(foundBookId);
+                foundBooks.add(foundBook);
+            }
+        }
+        return foundBooks;
     }
 
     @Override
-    public List<Book> getAvailableBooks() {
-        return List.of();
+    public ArrayList<Book> getAvailableBooks() {
+        ArrayList<Book> availableBooks = new ArrayList<>();
+        for (Map.Entry<String, Book> bookListing : books.entrySet()){
+            for (String bookId : rentedBooks.keySet()){
+                if (!(bookListing.getKey().equals(bookId))){
+                    availableBooks.add(bookListing.getValue());
+                }
+            }
+        }
+        return availableBooks;
     }
 }
