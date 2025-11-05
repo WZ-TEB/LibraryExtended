@@ -48,10 +48,12 @@ public class LibraryExtendedImpl implements LibraryExtended {
 
     @Override
     public ArrayList<Book> findBooksByAuthor(String author) {
-        ArrayList<Book> foundBooks = new ArrayList<>();
-        for (Book book : books.values()){
-            if (Arrays.asList(book.getAuthors()).contains(author)){
-                foundBooks.add(book);
+        ArrayList<Book> foundBooks =  new ArrayList<>();
+        for (Book book : books.values()) {
+            for (String s : book.getAuthors()) {
+                if (s.equals(author)) {
+                    foundBooks.add(book);
+                }
             }
         }
         return foundBooks;
@@ -59,9 +61,9 @@ public class LibraryExtendedImpl implements LibraryExtended {
 
     @Override
     public ArrayList<Client> findClientsByLastName(String lastName) {
-        ArrayList<Client> foundClients = new ArrayList<>();
-        for (Client client : clients.values()){
-            if (client.getLastName().equals(lastName)){
+        ArrayList<Client> foundClients =  new ArrayList<>();
+        for (Client client : clients.values()) {
+            if (client.getLastName().equals(lastName)) {
                 foundClients.add(client);
             }
         }
@@ -70,9 +72,9 @@ public class LibraryExtendedImpl implements LibraryExtended {
 
     @Override
     public ArrayList<Book> findBooksByTitle(String title) {
-        ArrayList<Book> foundBooks = new ArrayList<>();
-        for (Book book : books.values()){
-            if (book.getTitle().equals(title)){
+        ArrayList<Book> foundBooks =  new ArrayList<>();
+        for (Book book : books.values()) {
+            if (book.getTitle().equals(title)) {
                 foundBooks.add(book);
             }
         }
@@ -81,12 +83,12 @@ public class LibraryExtendedImpl implements LibraryExtended {
 
     @Override
     public ArrayList<Book> getRentedBooksOfClient(String clientId) {
-        ArrayList<Book> foundBooks = new ArrayList<>();
-        for (Map.Entry<String, String> entry : rentedBooks.entrySet()){
-            if (entry.getValue().equals(clientId)){
-                String foundBookId = entry.getKey();
-                Book foundBook = books.get(foundBookId);
-                foundBooks.add(foundBook);
+        ArrayList<Book> foundBooks =  new ArrayList<>();
+        for (var record : rentedBooks.entrySet()) {
+            if (record.getValue().equals(clientId)) {
+                String bookId = record.getKey();
+                Book book = books.get(bookId);
+                foundBooks.add(book);
             }
         }
         return foundBooks;
@@ -94,14 +96,13 @@ public class LibraryExtendedImpl implements LibraryExtended {
 
     @Override
     public ArrayList<Book> getAvailableBooks() {
-        ArrayList<Book> availableBooks = new ArrayList<>();
-        for (Map.Entry<String, Book> bookListing : books.entrySet()){
-            for (String bookId : rentedBooks.keySet()){
-                if (!(bookListing.getKey().equals(bookId))){
-                    availableBooks.add(bookListing.getValue());
-                }
+        ArrayList<Book> foundBooks =  new ArrayList<>();
+        for (Book book : books.values()) {
+            String bookId = book.getBookId();
+            if (!rentedBooks.containsKey(bookId)) {
+                foundBooks.add(book);
             }
         }
-        return availableBooks;
+        return foundBooks;
     }
 }

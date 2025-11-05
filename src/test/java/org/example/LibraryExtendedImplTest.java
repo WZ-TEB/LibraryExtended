@@ -1,50 +1,71 @@
 package org.example;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LibraryExtendedImplTest {
 
-    @org.junit.jupiter.api.Test
-    void addClient() {
+    LibraryExtendedImpl testLibrary =  new LibraryExtendedImpl();
+
+    @BeforeEach
+    void setUp() {
+        LibraryExtendedImpl testLibrary =  new LibraryExtendedImpl();
     }
 
-    @org.junit.jupiter.api.Test
+    @AfterEach
+    void tearDown() {
+        testLibrary = null;
+    }
+
+    @Test
+    void addClient() {
+        //given - dane wejsciowe
+        //when - wywolanie metody testowanej
+        String testClientId = testLibrary.addClient("testFirstName", "testLastName", "testEmail@testEmail.testEmail");
+        //then - faktyczna logika testu
+        assertTrue(testLibrary.clients.containsKey(testClientId));
+    }
+
+    @Test
     void removeClient() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void addBook() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void removeBook() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void rentBookToClient() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void returnBookToLibrary() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void findBooksByAuthor() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void findClientsByLastName() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void findBooksByTitle() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getRentedBooksOfClient() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getAvailableBooks() {
     }
 }
